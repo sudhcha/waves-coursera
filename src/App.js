@@ -1,22 +1,43 @@
 import logo from './logo.svg';
 import './App.css';
 
+let WavesKeeper = window.WavesKeeper
+
+
+
+
 function App() {
+
+
+  const authenticate = () => {
+    console.log("About to authenticate");
+    const authData = { data: "Auth on my site" };
+    if(WavesKeeper){
+      WavesKeeper.auth(authData).then(
+        auth => {
+          console.log(auth);
+        })
+        .catch(err => console.error(err));
+    } else{
+      alert("Please install WaveKeeper");
+    }
+  }
+
   return (
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
-          Edit <code>src/App.js</code> and save to reload.
+          Hello Waves
         </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <p>
+          <div>
+            <button onClick={authenticate}>Authenticate</button>
+          </div>
+        </p>
+        <p>
+          <h3>{this.state.authResponse}</h3>
+        </p>
       </header>
     </div>
   );
