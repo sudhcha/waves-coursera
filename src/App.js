@@ -30,14 +30,9 @@ function App() {
         <p>
           Hello Waves
         </p>
-        <p>
-          <div>
-            <button onClick={authenticate}>Authenticate</button>
-          </div>
-        </p>
-        <p>
-          <h3>{this.state.authResponse}</h3>
-        </p>
+        <div>
+          <button onClick={authenticate}>Authenticate</button>
+        </div>
       </header>
     </div>
   );
