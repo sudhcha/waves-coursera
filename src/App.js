@@ -2,7 +2,7 @@ import logo from './logo.svg';
 import { useState } from 'react';
 import './App.css';
 import { Signer } from '@waves/signer';
-import { ProviderKeeper } from '@waves/provider-keeper';
+import { ProviderWeb } from '@waves.exchange/provider-web';
 
 
 
@@ -18,12 +18,9 @@ function App() {
       // Specify URL of the node on Testnet
       NODE_URL: 'https://nodes-testnet.wavesnodes.com'
     });
-    const authData = {
-      data: 'server generated string',
-    }
-    const keeper = new ProviderKeeper(authData);
-    await signer.setProvider(keeper);
+    signer.setProvider(new ProviderWeb('https://testnet.waves.exchange/signer/'));
     const {address, publicKey} = await signer.login();
+    setAddress(address);
     console.log(publicKey);
     console.log(address);
   }
