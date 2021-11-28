@@ -1,8 +1,8 @@
 import logo from './logo.svg';
 import { useState } from 'react';
 import './App.css';
-
-let WavesKeeper = window.WavesKeeper
+import { Signer } from '@waves/signer';
+import { ProviderKeeper } from '@waves/provider-keeper';
 
 
 
@@ -12,19 +12,20 @@ function App() {
   const [address, setAddress] = useState("pending authentication");
 
 
-  const authenticate = () => {
+  const authenticate = async () => {
     console.log("About to authenticate");
-    const authData = { data: "Auth on my site" };
-    if(WavesKeeper){
-      WavesKeeper.auth(authData).then(
-        auth => {
-          console.log(auth);
-          setAddress(auth.address);
-        })
-        .catch(err => console.error(err));
-    } else{
-      alert("Please install WaveKeeper");
+    const signer = new Signer({
+      // Specify URL of the node on Testnet
+      NODE_URL: 'https://nodes-testnet.wavesnodes.com'
+    });
+    const authData = {
+      data: 'server generated string',
     }
+    const keeper = new ProviderKeeper(authData);
+    await signer.setProvider(keeper);
+    const {address, publicKey} = await signer.login();
+    console.log(publicKey);
+    console.log(address);
   }
 
   return (
