@@ -1,4 +1,5 @@
 import logo from './logo.svg';
+import { useState } from 'react';
 import './App.css';
 
 let WavesKeeper = window.WavesKeeper
@@ -8,6 +9,8 @@ let WavesKeeper = window.WavesKeeper
 
 function App() {
 
+  const [address, setAddress] = useState("pending authentication");
+
 
   const authenticate = () => {
     console.log("About to authenticate");
@@ -16,6 +19,7 @@ function App() {
       WavesKeeper.auth(authData).then(
         auth => {
           console.log(auth);
+          setAddress(auth.address);
         })
         .catch(err => console.error(err));
     } else{
@@ -32,6 +36,9 @@ function App() {
         </p>
         <div>
           <button onClick={authenticate}>Authenticate</button>
+        </div>
+        <div>
+          <h4>Address is {address}</h4>
         </div>
       </header>
     </div>
